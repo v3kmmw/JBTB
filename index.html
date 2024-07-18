@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jailbreak Trade Base</title>
+    <style>
+        @font-face {
+            font-family: 'Sansation';
+            src: url('Sansation.ttf') format('truetype');
+        }
+
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column; /* Ensures content and widget stack vertically */
+            justify-content: center; /* Center content vertically */
+            align-items: center; /* Center content horizontally */
+            background: url('gradient.svg') no-repeat center center fixed;
+            background-size: stretch;
+            font-family: 'Sansation', sans-serif;
+        }
+
+        .content {
+            max-width: 800px;
+            padding: 20px;
+            background-color: rgba(77, 77, 77, 0.534);
+            border-radius: 20px;
+            border: 2px solid rgb(0, 0, 0);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            color: #0A0718; /* Adjust text color */
+            animation: fadeIn 2s ease-in-out;
+            margin-bottom: 20px; /* Spacing between content and widget */
+        }
+
+        h1 {
+            font-size: 3em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 15px 25px;
+            font-size: 1.5em;
+            color: white;
+            background-color: #549061; /* Adjust button color */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #3D6D4F; /* Adjust hover color */
+        }
+
+        .discord-widget-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            
+            margin-bottom: 20px;
+        }
+
+        .discord-widget {
+            width: 550px; /* Adjust width as needed */
+            padding: 20px;
+            background-color: rgba(77, 77, 77, 0.534);
+            border: 2px solid rgb(0, 0, 0);
+            border-radius: 10px;
+            animation: fadeIn 3s ease-in-out;
+            box-shadow: 0 0 50px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        .discord-widget iframe {
+            width: 100%;
+            height: 500px; /* Adjust height as needed */
+            border: 2px solid rgb(0, 0, 0);
+            border-radius: 8px;
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+@media (max-width: 600px) {
+    .discord-widget {
+        width: 90%; /* Adjust width for smaller screens */
+        max-width: 90%; /* Ensure it doesn't overflow */
+        padding: 10px; /* Decrease padding */
+    }
+
+    .discord-widget iframe {
+        height: 400px; /* Adjust height for smaller screens */
+    }
+}
+    </style>
+</head>
+
+<body>
+    <div class="content">
+        <h1>Welcome to Jailbreak Trade Base</h1>
+    </div>
+    <div class="discord-widget-container">
+        <!-- Discord widget container -->
+        <div class="discord-widget">
+            <!-- Custom Discord widget plugin usage -->
+            <discord-widget id="1260356563965841491" width="550px" height="500px"
+                color="#549061" backgroundColor="rgba(77, 77, 77, 0.534)" textColor="#fff"
+                statusColor="#858585"></discord-widget>
+        </div>
+    </div>
+
+    <!-- Include the custom Discord widget JavaScript file -->
+    <script src="widget.js"></script>
+</body>
+
+</html>
