@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create a Custom Invite - Jailbreak Trade Base</title>
+    <style>
+        @font-face {
+            font-family: 'Sansation';
+            src: url('Sansation.ttf') format('truetype');
+        }
+
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: url('gradient.svg') no-repeat center center fixed;
+            background-size: cover;
+            font-family: 'Sansation', sans-serif;
+            color: #0A0718;
+        }
+
+        .content {
+            max-width: 800px;
+            padding: 20px;
+            background-color: rgba(77, 77, 77, 0.534);
+            border-radius: 20px;
+            border: 2px solid rgb(0, 0, 0);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        h1 {
+            font-size: 3em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 1.2em;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 15px 25px;
+            font-size: 1.5em;
+            color: white;
+            background-color: #549061;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #3D6D4F;
+        }
+
+        .gif-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .gif-container img {
+            max-width: 100%;
+            border-radius: 10px;
+            border: 2px solid rgb(0, 0, 0);
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="content">
+        <h1>How to Create a Custom Invite</h1>
+        <p>Follow these steps to create a custom invite for your Discord server:</p>
+        <p>
+            Click on a <strong>CHANNEL</strong> (not the server icon) in the server list.<br>
+            Click <strong>Create Invite</strong>.<br>
+            Click on <strong>Edit Invite Link</strong>.<br>
+            Under <strong>Expire After</strong>, choose your desired time frame.<br>
+            Click <strong>Generate a New Link</strong>.
+        </p>
+        <div class="gif-container">
+            <img src="https://v3kmmw.github.io/JBTB/invite.gif" alt="Creating a custom invite GIF">
+        </div>
+        <a class="button" href="index.html">Back to Home</a>
+    </div>
+</body>
+
+</html>
