@@ -24,6 +24,10 @@
         }
 
         .content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             max-width: 800px;
             padding: 20px;
             background-color: rgba(77, 77, 77, 0.534);
@@ -31,9 +35,9 @@
             border: 2px solid rgb(0, 0, 0);
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
             text-align: center;
-            color: #0A0718; /* Adjust text color */
+            color: #0A0718;
             animation: fadeIn 2s ease-in-out;
-            margin-bottom: 20px; /* Spacing between content and widget */
+            margin-bottom: 20px;
         }
 
         h1 {
@@ -47,8 +51,8 @@
             padding: 15px 25px;
             font-size: 1.5em;
             color: white;
-            background-color: #549061; /* Adjust button color */
-            border: none;
+            background-color: #549061;
+            border: 2px solid rgb(0, 0, 0);
             border-radius: 5px;
             cursor: pointer;
             text-decoration: none;
@@ -57,13 +61,15 @@
         }
 
         .button:hover {
-            background-color: #3D6D4F; /* Adjust hover color */
+            background-color: #3D6D4F;
+            border: 3px solid rgb(0, 0, 0);
         }
 
         .discord-widget-container {
             width: 100%;
             display: flex;
             justify-content: center;
+            text-align: center;
             
             margin-bottom: 20px;
         }
@@ -113,12 +119,14 @@
         <!-- Discord widget container -->
         <div class="discord-widget">
             <!-- Custom Discord widget plugin usage -->
+             
             <discord-widget id="1260356563965841491" width="550px" height="500px"
                 color="#549061" backgroundColor="rgba(77, 77, 77, 0.534)" textColor="#fff"
                 statusColor="#858585"></discord-widget>
+                <a class="button" href="custominvite.html">How to make a custom invite</a>
         </div>
+        
     </div>
-
     <!-- Include the custom Discord widget JavaScript file -->
     <script src="widget.js"></script>
 </body>
