@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Your Image - Jailbreak Trade Base</title>
+    <style>
+        @font-face {
+            font-family: 'Sansation';
+            src: url('Sansation.ttf') format('truetype');
+        }
+
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: url('gradient.svg') no-repeat center center fixed;
+            background-size: stretch;
+            font-family: 'Sansation', sans-serif;
+            color: #0A0718;
+        }
+
+        .content {
+            max-width: 800px;
+            padding: 20px;
+            background-color: rgba(77, 77, 77, 0.534);
+            border-radius: 20px;
+            border: 2px solid rgb(0, 0, 0);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        h1 {
+            font-size: 3em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 1.2em;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 15px 25px;
+            font-size: 1.5em;
+            color: white;
+            background-color: #549061;
+            border: 2px solid rgb(0, 0, 0);
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #3D6D4F;
+            border: 3px solid rgb(0, 0, 0);
+        }
+
+        .upload-form {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .upload-form input[type="file"] {
+            border: 2px solid #549061;
+            border-radius: 5px;
+            padding: 10px;
+            background-color: #e5e5e5;
+            cursor: pointer;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .upload-form input[type="file"]::-webkit-file-upload-button {
+            background-color: #549061;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .upload-form input[type="file"]::-webkit-file-upload-button:hover {
+            background-color: #3D6D4F;
+        }
+
+        .upload-form button {
+            padding: 15px 25px;
+            font-size: 1.5em;
+            color: white;
+            background-color: #549061;
+            border: 2px solid rgb(0, 0, 0);
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        .upload-form button:hover {
+            background-color: #3D6D4F;
+            border: 3px solid rgb(0, 0, 0);
+        }
+
+        #result {
+            margin-top: 20px;
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="content">
+        <h1>Upload Your Image</h1>
+        <p>Select an image file to upload:</p>
+        <form id="uploadForm" class="upload-form" action="#" method="post" enctype="multipart/form-data">
+            <input type="file" name="file" accept="image/*" required>
+            <button type="submit" class="button">Upload Image</button>
+        </form>
+        <div id="result"></div>
+        <a class="button" href="index.html">Back to Home</a>
+    </div>
+
+    <script>
+        document.getElementById('uploadForm').onsubmit = async function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+
+            // Show loading message
+            document.getElementById('result').innerHTML = 'Uploading...';
+
+            // Post the file to an external server for handling
+            const response = await fetch('https://20sg8n61-25248.use.devtunnels.ms/upload', {
+                method: 'POST',
+                body: formData
+            });
+
+            const result = await response.json();
+            document.getElementById('result').innerHTML = `File uploaded successfully. Access it here: <a href="${result.fileUrl}">${result.fileUrl}</a>`;
+        };
+    </script>
+</body>
+
+</html>
