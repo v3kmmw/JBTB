@@ -311,14 +311,23 @@
                     });
 
                     if (!response.ok) {
-                        throw new Error(`HTTP error! status: ${response.status}`);
+                        if (response.status === 403) {
+                            resultDiv.innerHTML = `<p>Invalid authorization code.</p>`;
+                            return;
+                        }
+                        else {
+                            resultDiv.innerHTML = `<p>Failed to upload file(s). Please try again later.</p>`;
+                            return;
+                        }
                     }
 
                     const result = await response.json();
+                    console.log(response)
                     const code = result.proof_code;
+                    console.log(result)
                     resultDiv.innerHTML = `<p>File(s) uploaded successfully.`;
                 } catch (error) {
-                    resultDiv.innerHTML = `An error occurred during upload: ${error.message}`;
+                    resultDiv.innerHTML = `${error}`;
                 }
             };
 
