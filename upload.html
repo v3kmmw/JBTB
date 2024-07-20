@@ -316,7 +316,7 @@
 
                     const result = await response.json();
                     const code = result.proof_code;
-                    resultDiv.innerHTML = `<p>File(s) uploaded successfully. Proof code: ${code}</p>`;
+                    resultDiv.innerHTML = `<p>File(s) uploaded successfully.`;
                 } catch (error) {
                     resultDiv.innerHTML = `An error occurred during upload: ${error.message}`;
                 }
