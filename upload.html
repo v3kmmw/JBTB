@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Upload Your Image - Jailbreak Trade Base</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
         @font-face {
             font-family: 'Sansation';
@@ -20,8 +21,65 @@
             align-items: center;
             background: url('gradient.svg') no-repeat center center fixed;
             background-size: stretch;
+            background-color: #000;
             font-family: 'Sansation', sans-serif;
             color: #0A0718;
+        }
+
+        .icon-bar {
+            width: 100%;
+            background-color: #161616;
+            overflow: auto;
+            display: flex;
+            justify-content: space-between;
+            z-index: 1000;
+            position: fixed;
+            top: 0;
+            padding: 10px;
+            font-family: 'Sansation', sans-serif;
+        }
+
+        .icon-bar .left-icons {
+            display: flex;
+            align-items: center;
+        }
+
+        .icon-bar .left-icons a {
+            justify-content: center;
+            padding: 12px 16px;
+            transition: all 0.3s ease;
+            color: white;
+            font-size: 24px;
+            text-decoration: none; /* Remove underline */
+        }
+
+        .icon-bar .left-icons a img {
+            width: 32px; /* Adjust size as needed */
+            height: 32px; /* Adjust size as needed */
+            vertical-align: middle; /* Align the icon with the text */
+            margin-right: 8px; /* Space between the icon and the text */
+        }
+
+        .icon-bar .left-icons a:hover {
+            background-color: #1d4e3c;
+        }
+
+        .icon-bar .right-icons {
+            display: flex;
+            align-items: center;
+        }
+
+        .icon-bar .right-icons a {
+            text-align: center;
+            padding: 12px 16px;
+            transition: all 0.3s ease;
+            color: white;
+            font-size: 24px;
+            text-decoration: none; /* Remove underline */
+        }
+
+        .icon-bar .right-icons a:hover {
+            background-color: #1d4e3c;
         }
 
         .content {
@@ -123,38 +181,187 @@
             0% { opacity: 0; }
             100% { opacity: 1; }
         }
+
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4); /* Black with opacity */
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background-color: #161616;
+            justify-content: center; 
+            text-align: center;
+            margin: 15% auto;
+            
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 500px;
+            border-radius: 10px;
+        }
+
+        .modal-content h3 {
+            font-size: 15px;
+            margin-bottom: 10px;
+            color: #a0a0a0;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .modal input[type="text"],
+        .modal input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .modal button {
+            width: 100%;
+            padding: 10px;
+            background-color: #549061;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .modal button:hover {
+            background-color: #3D6D4F;
+        }
     </style>
 </head>
 
 <body>
+    <div class="icon-bar">
+        <div class="left-icons">
+            <a href="custominvite.html"><img src="invite.png" alt="Invite"> Custom Invite Tutorial</a>
+            <a href="upload.html"><img src="upload.png" alt="Upload"> Upload Proof</a>
+            <a href="/"><img src="home.png" alt="Home"> Home</a>
+        </div>
+        <div class="right-icons">
+            <a class="text-button" id="loginBtn" href="#">Login</a>
+        </div>
+    </div>
+
     <div class="content">
         <h1>Upload Your Image</h1>
-        <p>Select an image file to upload:</p>
+        <p>Select image files to upload:</p>
         <form id="uploadForm" class="upload-form" action="#" method="post" enctype="multipart/form-data">
-            <input type="file" name="file" accept="image/*" required>
-            <button type="submit" class="button">Upload Image</button>
+            <input type="file" name="files" accept="image/*" multiple required>
+            <button type="submit" class="button">Upload Images</button>
         </form>
         <div id="result"></div>
         <a class="button" href="index.html">Back to Home</a>
     </div>
 
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3>We require you to log into your Discord account.</h3>
+            <h3>This is perfectly safe and your data is protected through a Discord integration.</h3>
+            <h3>This is made so you are able to access your uploaded proof of scammers, and to make your website experience better.</h3>
+            <form>
+                <button type="submit">Login</button>
+            </form>
+        </div>
+    </div>
     <script>
-        document.getElementById('uploadForm').onsubmit = async function(e) {
-            e.preventDefault();
-            const formData = new FormData(this);
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('uploadForm').onsubmit = async function(e) {
+        e.preventDefault();
+        const formData = new FormData(this);
+        const resultDiv = document.getElementById('result');
+        resultDiv.innerHTML = 'Uploading...';
 
-            // Show loading message
-            document.getElementById('result').innerHTML = 'Uploading...';
-
-            // Post the file to an external server for handling
+        try {
             const response = await fetch('https://20sg8n61-25248.use.devtunnels.ms/upload', {
                 method: 'POST',
                 body: formData
             });
 
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
             const result = await response.json();
-            document.getElementById('result').innerHTML = `File uploaded successfully. Here is the proof code: ${result['code']}`;
-        };
+            const code = result.proof_code;
+            resultDiv.innerHTML = `<p>File(s) uploaded successfully. Proof code: ${code}</p>`
+        } catch (error) {
+            resultDiv.innerHTML = `An error occurred during upload: ${error.message}`;
+        }
+    };
+
+    // Modal handling script
+    var modal = document.getElementById("loginModal");
+    var btn = document.getElementById("loginBtn");
+    var span = document.getElementsByClassName("close")[0];
+
+    btn.onclick = function() {
+        modal.style.display = "flex";
+    }
+
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+});
+    </script>
+    <script>
+        
+        // Get the modal
+        var modal = document.getElementById("loginModal");
+
+        // Get the button that opens the modal
+        var btn = document.getElementById("loginBtn");
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+
+        // When the user clicks on the button, open the modal
+        btn.onclick = function() {
+            modal.style.display = "flex";
+        }
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
     </script>
 </body>
 

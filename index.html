@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jailbreak Trade Base</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
         @font-face {
             font-family: 'Sansation';
@@ -15,12 +16,73 @@
             margin: 0;
             height: 100vh;
             display: flex;
-            flex-direction: column; /* Ensures content and widget stack vertically */
-            justify-content: center; /* Center content vertically */
-            align-items: center; /* Center content horizontally */
+            flex-direction: column;
+            align-items: center;
             background: url('gradient.svg') no-repeat center center fixed;
             background-size: stretch;
+            background-color: #000;
             font-family: 'Sansation', sans-serif;
+        }
+
+        .icon-bar {
+            width: 100%;
+            background-color: #161616;
+            overflow: auto;
+            display: flex;
+            justify-content: space-between;
+            z-index: 1000;
+            position: fixed;
+            top: 0;
+            padding: 10px;
+            font-family: 'Sansation', sans-serif;
+        }
+
+        .icon-bar .left-icons {
+            display: flex;
+            align-items: center;
+        }
+
+        .icon-bar .left-icons a {
+            text-align: center;
+            padding: 12px 16px;
+            transition: all 0.3s ease;
+            color: white;
+            font-size: 24px;
+            text-decoration: none; /* Remove underline */
+        }
+
+        .icon-bar .left-icons a img {
+            width: 32px; /* Adjust size as needed */
+            height: 32px; /* Adjust size as needed */
+            vertical-align: middle; /* Align the icon with the text */
+            margin-right: 8px; /* Space between the icon and the text */
+        }
+
+        .icon-bar .left-icons a:hover {
+            background-color: #1d4e3c;
+        }
+
+        .icon-bar .right-icons {
+            display: flex;
+            align-items: center;
+        }
+
+        .icon-bar .right-icons a {
+            text-align: center;
+            padding: 12px 16px;
+            transition: all 0.3s ease;
+            color: white;
+            font-size: 24px;
+            text-decoration: none; /* Remove underline */
+        }
+
+        .icon-bar .right-icons a:hover {
+            background-color: #1d4e3c;
+        }
+
+
+        .active {
+            background-color: #15694a;
         }
 
         .content {
@@ -37,6 +99,7 @@
             text-align: center;
             color: #0A0718;
             animation: fadeIn 2s ease-in-out;
+            margin-top: 80px; /* Added margin-top to avoid overlap with the fixed topnav */
             margin-bottom: 20px;
         }
 
@@ -70,12 +133,11 @@
             display: flex;
             justify-content: center;
             text-align: center;
-            
             margin-bottom: 20px;
         }
 
         .discord-widget {
-            width: 550px; /* Adjust width as needed */
+            width: 550px;
             padding: 20px;
             background-color: rgba(77, 77, 77, 0.534);
             border: 2px solid rgb(0, 0, 0);
@@ -87,49 +149,178 @@
 
         .discord-widget iframe {
             width: 100%;
-            height: 500px; /* Adjust height as needed */
+            height: 500px;
             border: 2px solid rgb(0, 0, 0);
             border-radius: 8px;
         }
 
         @keyframes fadeIn {
-            0% { opacity: 0; }
-            100% { opacity: 1; }
+            0% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
         }
 
-@media (max-width: 600px) {
-    .discord-widget {
-        width: 90%; /* Adjust width for smaller screens */
-        max-width: 90%; /* Ensure it doesn't overflow */
-        padding: 10px; /* Decrease padding */
-    }
+        @media (max-width: 600px) {
+            .discord-widget {
+                width: 90%;
+                max-width: 90%;
+                padding: 10px;
+            }
 
-    .discord-widget iframe {
-        height: 400px; /* Adjust height for smaller screens */
-    }
-}
+            .discord-widget iframe {
+                height: 400px;
+            }
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4); /* Black with opacity */
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: #161616;
+            justify-content: center; 
+            text-align: center;
+            margin: 15% auto;
+            
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 500px;
+            border-radius: 10px;
+        }
+
+        .modal-content h3 {
+            font-size: 15px;
+            margin-bottom: 10px;
+            color: #a0a0a0;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .modal input[type="text"],
+        .modal input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .modal button {
+            width: 100%;
+            padding: 10px;
+            background-color: #549061;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .modal button:hover {
+            background-color: #3D6D4F;
+        }
     </style>
 </head>
 
 <body>
+
+    <div class="icon-bar">
+        <div class="left-icons">
+            <a class="" href="custominvite.html"><img src="invite.png" alt="Invite"> Custom Invite Tutorial</a>
+            <a class="" href="upload.html"><img src="upload.png" alt="Upload"> Upload Proof</a>
+        </div>
+        <div class="right-icons">
+            <a class="text-button" id="loginBtn" href="#">Login</a>
+        </div>
+    </div>
+
     <div class="content">
         <h1>Welcome to Jailbreak Trade Base</h1>
     </div>
+
     <div class="discord-widget-container">
-        <!-- Discord widget container -->
         <div class="discord-widget">
-            <!-- Custom Discord widget plugin usage -->
-             
-            <discord-widget id="1260356563965841491" width="550px" height="500px"
+            <discord-widget id="1260356563965841491" width="100%" height="500px"
                 color="#549061" backgroundColor="rgba(77, 77, 77, 0.534)" textColor="#fff"
                 statusColor="#858585"></discord-widget>
-                <a class="button" href="custominvite.html">How to make a custom invite</a>
-                <a class="button" href="upload.html">Upload proof (experimental)</a>
+            <a class="button" href="custominvite.html">How to make a custom invite</a>
+            <a class="button" href="upload.html">Upload proof (experimental)</a>
         </div>
-        
     </div>
-    <!-- Include the custom Discord widget JavaScript file -->
+
+    <!-- The Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3>We require you to log into your discord account.</h3>
+            <h3>This is perfectly safe and your data is protected through a discord integration.</h3>
+            <h3>This is made so you are able to access your uploaded proof of scammers, and to make your website experience better.</h3>
+
+            <form>
+                <button type="submit">Login</button>
+            </form>
+        </div>
+    </div>
+
     <script src="widget.js"></script>
+
+    <script>
+        
+        // Get the modal
+        var modal = document.getElementById("loginModal");
+
+        // Get the button that opens the modal
+        var btn = document.getElementById("loginBtn");
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+
+        // When the user clicks on the button, open the modal
+        btn.onclick = function() {
+            modal.style.display = "flex";
+        }
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
 </body>
 
 </html>
